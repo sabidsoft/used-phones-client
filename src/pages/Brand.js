@@ -1,16 +1,18 @@
 import { useQuery } from '@tanstack/react-query'
-import React from 'react'
-import { Link, useLoaderData } from 'react-router-dom'
+import React, { useState } from 'react'
+import { useLoaderData } from 'react-router-dom'
 import Footer from '../components/Footer'
 import DOMAIN_NAME from '../utilities/DOMAIN_NAME'
 import { CheckCircleIcon } from '@heroicons/react/24/solid'
 import Loading from '../components/Loading'
+import BookingModal from '../modal/BookingModal'
 
 const Brand = () => {
+    const [selectedPhone, setSelectedPhone] = useState(null)
     const brand = useLoaderData()
 
-    const { data: phones = [], isLoading } = useQuery({
-        queryKey: ['phones'],
+    const { data: phones = [], isLoading, refetch } = useQuery({
+        queryKey: ['phones', brand.brand],
         queryFn: async () => {
             try {
                 const res = await fetch(`${DOMAIN_NAME}/phones?brand=${brand.brand}`)
@@ -23,8 +25,8 @@ const Brand = () => {
         }
     })
 
-    if(isLoading){
-        return <Loading/>
+    if (isLoading) {
+        return <Loading />
     }
 
     return (
@@ -53,9 +55,7 @@ const Brand = () => {
                                             }
                                         </p>
                                         <div className="card-actions justify-end">
-                                            <Link to={`/brands/${brand._id}`}>
-                                                <button className="btn btn-success text-white">Book Now</button>
-                                            </Link>
+                                            <label onClick={() => setSelectedPhone(phone)} htmlFor="booking-modal" className="btn btn-success text-white">Book Now</label>
                                         </div>
                                     </div>
                                 </div>
@@ -65,6 +65,15 @@ const Brand = () => {
                 </div>
             </div>
             <Footer />
+            {
+                selectedPhone && (
+                    <BookingModal
+                        selectedPhone={selectedPhone}
+                        refetch={refetch}
+                        setSelectedPhone={setSelectedPhone}
+                    />
+                )
+            }
         </div>
     )
 }

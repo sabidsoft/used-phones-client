@@ -13,8 +13,8 @@ import DOMAIN_NAME from '../utilities/DOMAIN_NAME'
 export const router = createBrowserRouter([
     {
         path: '/',
-        errorElement: <NotFoundPage />,
         element: <Main />,
+        errorElement: <NotFoundPage />,
         children: [
             {
                 path: '/',
@@ -41,8 +41,8 @@ export const router = createBrowserRouter([
     },
     {
         path: '/dashboard',
+        element: <PrivateRoute><DashboardLayout /></PrivateRoute>,
         errorElement: <NotFoundPage />,
-        element: <DashboardLayout />,
         // children: [
         //     {
 
