@@ -1,7 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import bannerImage from '../assets/images/banner.jpg'
-
+import bannerImage from '../assets/images/banner.png'
 const Banner = () => {
     return (
         <section
@@ -17,6 +16,7 @@ const Banner = () => {
                 alignItems: 'center',
                 paddingLeft: '10px',
                 paddingRight: '10px',
+                backgroundPosition: 'center'
             }}
         >
             <h1 className='text-5xl text-center text-white font-bold mb-8'>Used Phones</h1>

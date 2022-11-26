@@ -1,5 +1,5 @@
 import React from 'react'
-import bg from '../assets/images/b.png'
+import bg from '../assets/images/bg-one.jpg'
 import { Link } from 'react-router-dom'
 
 const WhyCooseUs = () => {

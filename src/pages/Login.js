@@ -61,7 +61,6 @@ const Login = () => {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data)
                 getUserToken(email)
             })
             .catch(err => console.log(err))

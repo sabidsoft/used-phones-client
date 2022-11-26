@@ -7,6 +7,7 @@ import Home from '../pages/Home'
 import Login from '../pages/Login'
 import NotFoundPage from '../pages/NotFoundPage'
 import Register from '../pages/Register'
+import PrivateRoute from '../PrivateRoute/PrivateRoute'
 import DOMAIN_NAME from '../utilities/DOMAIN_NAME'
 
 export const router = createBrowserRouter([
@@ -21,7 +22,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/brands/:id',
-                element: <Brand />,
+                element: <PrivateRoute><Brand /></PrivateRoute>,
                 loader: ({ params }) => fetch(`${DOMAIN_NAME}/brands/${params.id}`)
             },
             {
