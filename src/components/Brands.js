@@ -37,7 +37,7 @@ const Brands = () => {
                                     <p>Please click the select button to buy second hand {brand.brand} mobile phone</p>
                                     <div className="card-actions justify-end">
                                         <Link to={`/brands/${brand._id}`}>
-                                            <button className="btn btn-success text-white">Select {brand.brand}</button>
+                                            <button className="btn btn-success text-white">Select Used {brand.brand}</button>
                                         </Link>
                                     </div>
                                 </div>

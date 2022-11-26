@@ -6,10 +6,11 @@ import DOMAIN_NAME from '../utilities/DOMAIN_NAME'
 
 const Register = () => {
     const [signupError, setSignupError] = useState('')
-    const { signup, updateUserProfile } = useContext(AuthContext)
+    const { signup, updateUserProfile, googleLogin } = useContext(AuthContext)
     const { register, handleSubmit, formState: { errors } } = useForm()
     const navigate = useNavigate()
 
+    // email/password signup
     const handleOnSubmit = data => {
         signup(data.email, data.password)
             .then(result => {
@@ -18,11 +19,11 @@ const Register = () => {
                 }
                 updateUserProfile(profile)
                     .then(() => {
-                        saveUserToDatabase(data.email, data.name)
+                        saveUserToDatabase(data.email, data.name, data.user_type)
+                        setSignupError('')
+                        navigate('/')
                     })
                     .catch(err => console.log(err))
-                setSignupError('')
-                navigate('/')
             })
             .catch(err => {
                 if (err.code === 'auth/email-already-in-use') {
@@ -31,21 +32,41 @@ const Register = () => {
             })
     }
 
-    const saveUserToDatabase = (email, name) => {
+    // google login
+    const handleGoogleLogin = () => {
+        googleLogin()
+            .then(result => {
+                const { email, displayName } = result.user
+                const user_type = 'Buyer'
+                saveUserToDatabase(email, displayName, user_type)
+                navigate('/')
+            })
+            .catch(err => console.log(err))
+    }
+
+    // save user to database
+    const saveUserToDatabase = (email, name, user_type) => {
+        const user = {
+            email,
+            name,
+            user_type
+        }
         fetch(`${DOMAIN_NAME}/users`, {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
             },
-            body: JSON.stringify({ email, name })
+            body: JSON.stringify(user)
         })
             .then(res => res.json())
             .then(data => {
+                console.log(data)
                 getUserToken(email)
             })
             .catch(err => console.log(err))
     }
 
+    // fetch jwt token from server and save to localstorage
     const getUserToken = email => {
         fetch(`${DOMAIN_NAME}/jwt?email=${email}`)
             .then(res => res.json())
@@ -81,9 +102,7 @@ const Register = () => {
                             type="email"
                             id='email'
                             className="input input-bordered w-full"
-                            {...register("email", {
-                                required: 'Email is required!'
-                            })}
+                            {...register("email", { required: 'Email is required!' })}
                         />
                         {errors.email && <span className='text-red-600'>{errors.email?.message}</span>}
                     </div>
@@ -102,12 +121,33 @@ const Register = () => {
                         <Link to='/forget-password' className="text-sm mt-1">Forget Pawssword?</Link>
                         {errors.password && <span className='text-red-600'>{errors.password?.message}</span>}
                     </div>
+                    <div className="flex mb-3">
+                        <input
+                            type="radio"
+                            name="user_type"
+                            value='Buyer'
+                            defaultChecked
+                            className="radio radio-success mr-2"
+                            {...register("user_type")}
+                        />
+                        <span>As a Buyer</span>
+                    </div>
+                    <div className='flex mb-5'>
+                        <input
+                            type="radio"
+                            name="user_type"
+                            value='Seller'
+                            className="radio radio-success mr-2"
+                            {...register("user_type")}
+                        />
+                        <span>As a Seller</span>
+                    </div>
                     {signupError && <p className='mb-5 text-red-600'>{signupError}</p>}
-                    <input type="submit" value='Register' className='btn btn-accent w-full mb-5' />
+                    <input type="submit" value='Register' className='btn btn-success text-white w-full mb-5' />
                 </form>
-                <p className='text-sm text-center'>Old to Doctors Portal? <Link to='/login' className='text-secondary'>Login here</Link></p>
+                <p className='text-sm text-center'>Old to Doctors Portal? <Link to='/login' className='text-info underline'>Login here</Link></p>
                 <div className="divider mb-8">OR</div>
-                <button className='btn btn-outline w-full mb-5'>Continue with google</button>
+                <button onClick={handleGoogleLogin} className='btn btn-outline w-full mb-5'>Continue with google</button>
             </div>
         </div>
     )

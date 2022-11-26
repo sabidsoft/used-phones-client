@@ -11,6 +11,7 @@ const Login = () => {
     const navigate = useNavigate()
     const location = useLocation()
 
+    // email/password login
     const handleOnSubmit = data => {
         login(data.email, data.password)
             .then(result => {
@@ -32,14 +33,41 @@ const Login = () => {
             })
     }
 
+    // google login
     const handleGoogleLogin = () => {
         googleLogin()
             .then(result => {
+                const { email, displayName } = result.user
+                const user_type = 'Buyer'
+                saveUserToDatabase(email, displayName, user_type)
                 navigate(location.state?.from?.pathname || '/', { replace: true })
             })
             .catch(err => console.log(err))
     }
 
+    // save user to database
+    const saveUserToDatabase = (email, name, user_type) => {
+        const user = {
+            email,
+            name,
+            user_type
+        }
+        fetch(`${DOMAIN_NAME}/users`, {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                getUserToken(email)
+            })
+            .catch(err => console.log(err))
+    }
+
+    // fetch jwt token from server and save to localstorage
     const getUserToken = email => {
         fetch(`${DOMAIN_NAME}/jwt?email=${email}`)
             .then(res => res.json())
@@ -82,9 +110,9 @@ const Login = () => {
                         {errors.password && <span className='text-red-600'>{errors.password?.message}</span>}
                     </div>
                     {loginError && <p className='mb-5 text-red-600'>{loginError}</p>}
-                    <input type="submit" value='LOGIN' className='btn btn-accent w-full mb-5' />
+                    <input type="submit" value='Login' className='btn btn-success text-white w-full mb-5' />
                 </form>
-                <p className='text-sm text-center'>New to Doctors Portal? <Link to='/register' className='text-secondary'>Create new account</Link></p>
+                <p className='text-sm text-center'>New to Doctors Portal? <Link to='/register' className='text-info underline'>Create new account</Link></p>
                 <div className="divider mb-8">OR</div>
                 <button onClick={handleGoogleLogin} className='btn btn-outline w-full mb-5'>Continue with google</button>
             </div>
