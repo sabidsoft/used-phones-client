@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js'
 import DOMAIN_NAME from '../utilities/DOMAIN_NAME'
+import toast from 'react-hot-toast'
 
 
 const CheckoutForm = ({ booking }) => {
@@ -85,8 +86,9 @@ const CheckoutForm = ({ booking }) => {
                 .then(res => res.json())
                 .then(data => {
                     if (data.insertedId) {
-                        setSuccess('Congrates! your payment completed.')
+                        setSuccess('Congrates! your payment is successfully done.')
                         setTransactionId(paymentIntent.id)
+                        toast.success('Payment is sucessfully done!')
                     }
                 })
                 .catch(err => console.log(err))
@@ -114,21 +116,21 @@ const CheckoutForm = ({ booking }) => {
                     }}
                 />
                 {cardError && <p className='text-red-600 mt-4'>{cardError}</p>}
+                {
+                    success && (
+                        <div className='mt-5 mb-2'>
+                            <p className='text-green-600'>{success}</p>
+                            <p>Your Transaction ID is <span className='font-bold'>{transactionId}</span></p>
+                        </div>
+                    )
+                }
                 <button
-                    className='btn btn-sm btn-primary mt-4'
+                    className='btn  btn-success mt-4 text-white'
                     type="submit"
                     disabled={!stripe || !clientSecret || processing}>
-                    Pay
+                    Pay Now
                 </button>
             </form>
-            {
-                success && (
-                    <div className='mt-4'>
-                        <p className='text-green-600'>{success}</p>
-                        <p>Your Transaction Id: <span className='font-bold'>{transactionId}</span></p>
-                    </div>
-                )
-            }
         </>
     )
 }

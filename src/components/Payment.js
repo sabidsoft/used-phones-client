@@ -16,10 +16,10 @@ const Payment = () => {
     // }
 
     return (
-        <div>
-            <h1 className='text-2xl mb-6'>Payment for second hand mobile phone</h1>
-            <p>Please pay <strong>${resalePrice}</strong> for your {brandName}, model {modelName}</p>
-            <div className='w-96 my-12'>
+        <div className='md:w-2/4 mx-auto px-10'>
+            <h1 className='text-3xl font-semibold mb-6'>Payment for second hand mobile phone</h1>
+            <p>Please pay <strong>${resalePrice}</strong> for buy second hand {brandName}, model {modelName}</p>
+            <div className='w-80 my-12'>
                 <Elements stripe={stripePromise}>
                     <CheckoutForm
                         booking={booking}

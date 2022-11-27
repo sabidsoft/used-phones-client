@@ -7,7 +7,7 @@ const DashboardLayout = () => {
         <div>
             <Menubar />
             <div className='max-w-[1440px] mx-auto'>
-                <div className='text-center mt-10 mb-10'>
+                <div className='text-center mt-10 mb-10 px-10'>
                     <Link to='/dashboard/my-orders' className='inline-block mr-3 mb-5'>
                         <button className="btn btn-outline btn-success rounded-full px-8">My Orders</button>
                     </Link>

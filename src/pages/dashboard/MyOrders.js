@@ -41,7 +41,7 @@ const MyOrders = () => {
                             return (
                                 <tr key={booking._id}>
                                     <th>{index + 1}</th>
-                                    <td><img src={booking.phoneImage} alt="Phone Pic" className='w-16 h-16 rounded-full' /></td>
+                                    <td><img src={booking.phoneImage} alt="Phone Pic" className='w-10 h-10 rounded-full' /></td>
                                     <td>{booking.brandName}</td>
                                     <td>{booking.modelName}</td>
                                     <td>{`$${booking.resalePrice}`}</td>
