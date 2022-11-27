@@ -3,6 +3,8 @@ import DashboardLayout from '../layout/DashboardLayout'
 import Main from '../layout/Main'
 import Blogs from '../pages/Blogs'
 import Brand from '../pages/Brand'
+import Dashboard from '../pages/dashboard/Dashboard'
+import MyOrders from '../pages/dashboard/MyOrders'
 import Home from '../pages/Home'
 import Login from '../pages/Login'
 import NotFoundPage from '../pages/NotFoundPage'
@@ -43,10 +45,20 @@ export const router = createBrowserRouter([
         path: '/dashboard',
         element: <PrivateRoute><DashboardLayout /></PrivateRoute>,
         errorElement: <NotFoundPage />,
-        // children: [
-        //     {
-
-        //     },
-        // ]
+        children: [
+            {
+                path: '/dashboard',
+                element: <Dashboard />
+            },
+            {
+                path: '/dashboard/my-orders',
+                element: <MyOrders />
+            },
+            {
+                path: '/dashboard/payment/:id',
+                element: <Payment/>,
+                loader: ({params}) => fetch(`${DOMAIN_NAME}/bookings/${params.id}`)
+            }
+        ]
     }
 ])
