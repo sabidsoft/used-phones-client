@@ -44,7 +44,7 @@ const MyOrders = () => {
                                     <td><img src={booking.phoneImage} alt="Phone Pic" className='w-16 h-16 rounded-full' /></td>
                                     <td>{booking.brandName}</td>
                                     <td>{booking.modelName}</td>
-                                    <td>{`${booking.resalePrice}/tk`}</td>
+                                    <td>{`$${booking.resalePrice}`}</td>
                                     <td>
                                             {
                                                 booking.resalePrice && !booking.paid && (

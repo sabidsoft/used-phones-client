@@ -1,4 +1,5 @@
 import { createBrowserRouter } from 'react-router-dom'
+import Payment from '../components/Payment'
 import DashboardLayout from '../layout/DashboardLayout'
 import Main from '../layout/Main'
 import Blogs from '../pages/Blogs'

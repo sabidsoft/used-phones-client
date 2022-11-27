@@ -44,8 +44,8 @@ const Brand = () => {
                                         <p><span className='font-bold'>Brand:</span> {phone.brand}</p>
                                         <p><span className='font-bold'>Model:</span> {phone.model}</p>
                                         <p><span className='font-bold'>Location:</span> {phone.location}</p>
-                                        <p><span className='font-bold'>Original Price:</span> {phone.original_price}/tk</p>
-                                        <p><span className='font-bold'>Resale Price:</span> {phone.resale_price}/tk</p>
+                                        <p><span className='font-bold'>Original Price:</span> ${phone.original_price}</p>
+                                        <p><span className='font-bold'>Resale Price:</span> ${phone.resale_price}</p>
                                         <p><span className='font-bold'>Years of Use:</span> {phone.years_of_use}</p>
                                         <p><span className='font-bold'>Posted Date:</span> {phone.post_time}</p>
                                         <p className='mb-5'>
