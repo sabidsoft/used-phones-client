@@ -1,26 +1,31 @@
-import { useQuery } from '@tanstack/react-query';
-import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
-import { AuthContext } from '../../contexts/AuthProvider';
-import DOMAIN_NAME from '../../utilities/DOMAIN_NAME';
+import React, { useContext, useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
+import Loading from '../../components/Loading'
+import { AuthContext } from '../../contexts/AuthProvider'
+import DOMAIN_NAME from '../../utilities/DOMAIN_NAME'
 
 const MyOrders = () => {
+    const [bookings, setBookings] = useState([])
+    const [loading, setLoading] = useState(true)
     const { user } = useContext(AuthContext)
 
-    const { data: bookings = [] } = useQuery({
-        queryKey: ['bookings', user?.email],
-        queryFn: async () => {
-            const res = await fetch(`${DOMAIN_NAME}/bookings?email=${user?.email}`, {
-                headers: {
-                    authorization: `Bearer ${localStorage.getItem('token')}`
-                }
+    useEffect(() => {
+        fetch(`${DOMAIN_NAME}/bookings?email=${user?.email}`, {
+            headers: {
+                authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                setBookings(data)
+                setLoading(false)
             })
-            const data = await res.json()
-            return data
-        }
-    })
+            .catch(err => console.log(err))
+    }, [user?.email])
 
-    console.log(bookings)
+    if(loading){
+        return <Loading/>
+    }
 
     return (
         <div className="overflow-x-auto">
@@ -46,17 +51,17 @@ const MyOrders = () => {
                                     <td>{booking.modelName}</td>
                                     <td>{`$${booking.resalePrice}`}</td>
                                     <td>
-                                            {
-                                                booking.resalePrice && !booking.paid && (
-                                                    <Link to={`/dashboard/payment/${booking._id}`}>
-                                                        <button className='btn btn-sm btn-success text-white'>Pay Now</button>
-                                                    </Link>
-                                                )
-                                            }
-                                            {
-                                                booking.resalePrice && booking.paid && <span className='text-green-600'>Paid</span>
-                                            }
-                                        </td>
+                                        {
+                                            booking.resalePrice && !booking.paid && (
+                                                <Link to={`/dashboard/payment/${booking._id}`}>
+                                                    <button className='btn btn-sm btn-success text-white'>Pay Now</button>
+                                                </Link>
+                                            )
+                                        }
+                                        {
+                                            booking.resalePrice && booking.paid && <span className='text-green-600'>Paid</span>
+                                        }
+                                    </td>
                                 </tr>
                             )
                         })
@@ -64,7 +69,7 @@ const MyOrders = () => {
                 </tbody>
             </table>
         </div>
-    );
-};
+    )
+}
 
-export default MyOrders;
+export default MyOrders

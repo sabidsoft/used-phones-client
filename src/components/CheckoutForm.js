@@ -3,7 +3,6 @@ import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js'
 import DOMAIN_NAME from '../utilities/DOMAIN_NAME'
 import toast from 'react-hot-toast'
 
-
 const CheckoutForm = ({ booking }) => {
     const [cardError, setCardError] = useState('')
     const [success, setSuccess] = useState('')
@@ -12,7 +11,7 @@ const CheckoutForm = ({ booking }) => {
     const [clientSecret, setClientSecret] = useState('')
     const stripe = useStripe()
     const elements = useElements()
-    const { _id, userEmail, username, resalePrice } = booking
+    const { _id, phoneId, userEmail, username, resalePrice } = booking
 
     useEffect(() => {
         fetch(`${DOMAIN_NAME}/create-payment-intent`, {
@@ -85,11 +84,29 @@ const CheckoutForm = ({ booking }) => {
             })
                 .then(res => res.json())
                 .then(data => {
-                    if (data.insertedId) {
-                        setSuccess('Congrates! your payment is successfully done.')
-                        setTransactionId(paymentIntent.id)
-                        toast.success('Payment is sucessfully done!')
-                    }
+                    fetch(`${DOMAIN_NAME}/phones?phoneId=${phoneId}`, {
+                        method: "PATCH",
+                        headers: {
+                            authorization: `Bearer ${localStorage.getItem('token')}`
+                        }
+                    })
+                        .then(res => res.json())
+                        .then(data => {
+                            fetch(`${DOMAIN_NAME}/advertised-items?phoneId=${phoneId}`, {
+                                method: "PATCH",
+                                headers: {
+                                    authorization: `Bearer ${localStorage.getItem('token')}`
+                                }
+                            })
+                                .then(res => res.json())
+                                .then(data => {
+                                    setSuccess('Congrates! your payment is successfully done.')
+                                    setTransactionId(paymentIntent.id)
+                                    toast.success('Payment is sucessfully done!')
+                                })
+                                .catch(err => console.log(err))
+                        })
+                        .catch(err => console.log(err))
                 })
                 .catch(err => console.log(err))
         }

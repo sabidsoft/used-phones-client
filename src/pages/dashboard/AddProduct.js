@@ -1,12 +1,14 @@
 import React, { useContext } from 'react'
 import { useForm } from "react-hook-form"
 import toast from 'react-hot-toast'
+import { useNavigate } from 'react-router-dom'
 import { AuthContext } from '../../contexts/AuthProvider'
 import DOMAIN_NAME from '../../utilities/DOMAIN_NAME'
 
 const AddProduct = () => {
     const { user } = useContext(AuthContext)
     const { register, handleSubmit, formState: { errors } } = useForm()
+    const navigate = useNavigate()
 
     const onSubmit = data => {
         const formData = new FormData()
@@ -31,6 +33,8 @@ const AddProduct = () => {
                         condition_type: data.conditionType,
                         post_time: new Date(),
                         seller_name: user?.displayName,
+                        seller_email: user?.email,
+                        sales_status: 'Available',
                         is_seller_verified: false
                     }
 
@@ -44,8 +48,8 @@ const AddProduct = () => {
                     })
                         .then(res => res.json())
                         .then(result => {
-                            console.log(result)
-                            toast.success(`Phone added successfully`)
+                            toast.success(`Product added successfully`)
+                            navigate('/dashboard/my-products')
                         })
                         .catch(err => console.log(err))
                 }

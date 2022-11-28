@@ -7,6 +7,7 @@ import Brand from '../pages/Brand'
 import AddProduct from '../pages/dashboard/AddProduct'
 import Dashboard from '../pages/dashboard/Dashboard'
 import MyOrders from '../pages/dashboard/MyOrders'
+import MyProducts from '../pages/dashboard/MyProducts'
 import Home from '../pages/Home'
 import Login from '../pages/Login'
 import NotFoundPage from '../pages/NotFoundPage'
@@ -57,8 +58,12 @@ export const router = createBrowserRouter([
                 element: <MyOrders />
             },
             {
-                path: '/dashboard/add-prroduct',
+                path: '/dashboard/add-product',
                 element: <AddProduct/>
+            },
+            {
+                path: '/dashboard/my-products',
+                element: <MyProducts/>
             },
             {
                 path: '/dashboard/payment/:id',

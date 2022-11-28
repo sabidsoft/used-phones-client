@@ -5,7 +5,7 @@ import DOMAIN_NAME from '../utilities/DOMAIN_NAME';
 
 const BookingModal = ({ selectedPhone, refetch, setSelectedPhone }) => {
     const { user } = useContext(AuthContext)
-    const { brand, model, resale_price, image } = selectedPhone
+    const {_id, brand, model, resale_price, image } = selectedPhone
     const handleOnSubmit = event => {
         event.preventDefault()
         const username = event.target.name.value
@@ -17,6 +17,7 @@ const BookingModal = ({ selectedPhone, refetch, setSelectedPhone }) => {
         const location = event.target.location.value
 
         const booking = {
+            phoneId: _id,
             username,
             userEmail,
             phoneImage: image,
