@@ -5,6 +5,8 @@ import Main from '../layout/Main'
 import Blogs from '../pages/Blogs'
 import Brand from '../pages/Brand'
 import AddProduct from '../pages/dashboard/AddProduct'
+import AllBuyers from '../pages/dashboard/AllBuyers'
+import AllSellers from '../pages/dashboard/AllSellers'
 import Dashboard from '../pages/dashboard/Dashboard'
 import MyOrders from '../pages/dashboard/MyOrders'
 import MyProducts from '../pages/dashboard/MyProducts'
@@ -64,6 +66,14 @@ export const router = createBrowserRouter([
             {
                 path: '/dashboard/my-products',
                 element: <MyProducts/>
+            },
+            {
+                path: '/dashboard/all-sellers',
+                element: <AllSellers/>
+            },
+            {
+                path: '/dashboard/all-buyers',
+                element: <AllBuyers/>
             },
             {
                 path: '/dashboard/payment/:id',
