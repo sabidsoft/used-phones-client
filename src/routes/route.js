@@ -4,6 +4,7 @@ import DashboardLayout from '../layout/DashboardLayout'
 import Main from '../layout/Main'
 import Blogs from '../pages/Blogs'
 import Brand from '../pages/Brand'
+import AddProduct from '../pages/dashboard/AddProduct'
 import Dashboard from '../pages/dashboard/Dashboard'
 import MyOrders from '../pages/dashboard/MyOrders'
 import Home from '../pages/Home'
@@ -54,6 +55,10 @@ export const router = createBrowserRouter([
             {
                 path: '/dashboard/my-orders',
                 element: <MyOrders />
+            },
+            {
+                path: '/dashboard/add-prroduct',
+                element: <AddProduct/>
             },
             {
                 path: '/dashboard/payment/:id',

@@ -11,16 +11,16 @@ const DashboardLayout = () => {
                     <Link to='/dashboard/my-orders' className='inline-block mr-3 mb-5'>
                         <button className="btn btn-outline btn-success rounded-full px-8">My Orders</button>
                     </Link>
-                    <Link to='/' className='inline-block mr-3 mb-5'>
+                    <Link to='/dashboard/add-prroduct' className='inline-block mr-3 mb-5'>
                         <button className="btn btn-outline btn-success rounded-full px-8">Add A product</button>
                     </Link>
-                    <Link to='/' className='inline-block mr-3 mb-5'>
+                    <Link to='/dashboard' className='inline-block mr-3 mb-5'>
                         <button className="btn btn-outline btn-success rounded-full px-8">My Products</button>
                     </Link>
-                    <Link to='/' className='inline-block mr-3 mb-5'>
+                    <Link to='/dashboard' className='inline-block mr-3 mb-5'>
                         <button className="btn btn-outline btn-success rounded-full px-8">All Sellers</button>
                     </Link>
-                    <Link to='/' className='inline-block mr-3 mb-5'>
+                    <Link to='/dashboard' className='inline-block mr-3 mb-5'>
                         <button className="btn btn-outline btn-success rounded-full px-8">All Buyers</button>
                     </Link>
                 </div>

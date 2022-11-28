@@ -29,6 +29,15 @@ const Brand = () => {
         return <Loading />
     }
 
+    if (phones.length === 0) {
+        return (
+            <div className='h-screen flex flex-col justify-center items-center'>
+                <h1 className='text-4xl font-semibold mb-5'>We Are Sorry!</h1>
+                <h1 className='text-2xl font-semibold'>Secon hand {brand.brand} not available</h1>
+            </div>
+        )
+    }
+
     return (
         <div>
             <div className='max-w-[1440px] mx-auto px-5 lg:px-0'>
