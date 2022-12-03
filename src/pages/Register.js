@@ -117,7 +117,6 @@ const Register = () => {
                                 pattern: { value: /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])/, message: 'Password must contain at least a lowercase, a uppercase and a number!' }
                             })}
                         />
-                        <Link to='/forget-password' className="text-sm mt-1">Forget Pawssword?</Link>
                         {errors.password && <span className='text-red-600'>{errors.password?.message}</span>}
                     </div>
                     <div className="flex mb-3">

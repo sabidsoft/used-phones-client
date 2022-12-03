@@ -27,6 +27,14 @@ const MyOrders = () => {
         return <Loading/>
     }
 
+    if(bookings.length === 0){
+        return (
+            <div>
+                <h1 className='text-center'>You have no orders!</h1>
+            </div>
+        )
+    }
+
     return (
         <div className="overflow-x-auto mb-20">
             <table className="table w-full">

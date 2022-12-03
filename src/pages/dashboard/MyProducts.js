@@ -68,6 +68,14 @@ const MyProducts = () => {
             .catch(err => console.log(err))
     }
 
+    if(myProducts.length === 0){
+        return (
+            <div>
+                <h1 className='text-center'>You have no products!</h1>
+            </div>
+        )
+    }
+
     return (
         <div className="overflow-x-auto mb-20">
             <table className="table w-full">

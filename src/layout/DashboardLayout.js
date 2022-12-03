@@ -20,8 +20,8 @@ const DashboardLayout = () => {
             .catch(err => console.log(err))
     }, [user?.email])
 
-    if(loading){
-        return <Loading/>
+    if (loading) {
+        return <Loading />
     }
 
     return (
@@ -41,11 +41,14 @@ const DashboardLayout = () => {
                     {
                         userType === 'Seller' && (
                             <>
-                                <Link to='/dashboard/add-product' className='inline-block mr-3 mb-5'>
-                                    <button className="btn btn-outline btn-success rounded-full px-8">Add A product</button>
+                                <Link to='/dashboard/my-orders' className='inline-block mr-3 mb-5'>
+                                    <button className="btn btn-outline btn-success rounded-full px-8">My Orders</button>
                                 </Link>
                                 <Link to='/dashboard/my-products' className='inline-block mr-3 mb-5'>
                                     <button className="btn btn-outline btn-success rounded-full px-8">My Products</button>
+                                </Link>
+                                <Link to='/dashboard/add-product' className='inline-block mr-3 mb-5'>
+                                    <button className="btn btn-outline btn-success rounded-full px-8">Add A product</button>
                                 </Link>
                             </>
                         )

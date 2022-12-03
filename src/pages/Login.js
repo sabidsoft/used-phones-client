@@ -105,7 +105,6 @@ const Login = () => {
                                 required: 'Password is required!',
                             })}
                         />
-                        <Link to='/forget-password' className="text-sm mt-1">Forget Pawssword?</Link>
                         {errors.password && <span className='text-red-600'>{errors.password?.message}</span>}
                     </div>
                     {loginError && <p className='mb-5 text-red-600'>{loginError}</p>}
